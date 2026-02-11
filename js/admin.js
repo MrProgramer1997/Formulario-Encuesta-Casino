@@ -9,7 +9,7 @@ const supabaseAdmin = window.supabase.createClient(
 );
 
 // Contraseña del panel admin
-const ADMIN_PASSWORD = "Club2025*";
+const ADMIN_PASSWORD = "Club2026*";
 
 // Elementos de login
 const adminLogin = document.getElementById("adminLogin");

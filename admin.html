@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin – Encuesta Casino</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="bg-layer bg-layer-1"></div>
+  <div class="bg-layer bg-layer-2"></div>
+  <div class="bg-stars"></div>
+
+  <main class="page">
+    <!-- Panel info -->
+    <section class="panel panel-left">
+      <div>
+        <div class="badge">Panel · Administración 🍽️</div>
+        <h1 class="title">
+          Encuesta<br/>
+          <span>Casino Admin</span>
+        </h1>
+        <p class="subtitle">
+          Consulta en tiempo real las respuestas de satisfacción del casino.
+        </p>
+
+        <div class="highlight-box">
+          <div class="highlight-icon">📊</div>
+          <div class="highlight-text">
+            <h2>Uso interno</h2>
+            <p>Panel exclusivo para el área de Sistemas y Bienestar.</p>
+          </div>
+        </div>
+
+        <ul class="info-list">
+          <li>✔ Visualización de respuestas por fecha.</li>
+          <li>✔ Buscador por nombre, apellido o documento.</li>
+          <li>✔ Promedios generales (1 a 5).</li>
+          <li>✔ Exportar a Excel (CSV).</li>
+        </ul>
+      </div>
+
+      <div class="floating-lights">
+        <span class="light light-1"></span>
+        <span class="light light-2"></span>
+        <span class="light light-3"></span>
+      </div>
+    </section>
+
+    <!-- Panel admin con login + contenido -->
+    <section class="panel panel-right">
+      <!-- BLOQUE LOGIN -->
+      <div class="admin-login" id="adminLogin">
+        <h2>Acceso restringido</h2>
+        <p>Ingresa la contraseña de administración para continuar.</p>
+
+        <div class="field">
+          <label for="adminPassword">Contraseña</label>
+          <input
+            type="password"
+            id="adminPassword"
+            placeholder="********"
+            autocomplete="off"
+          />
+        </div>
+
+        <button type="button" class="btn-primary" id="adminLoginBtn">
+          Ingresar
+        </button>
+
+        <div class="admin-login-msg" id="adminLoginMsg"></div>
+
+        <p class="admin-login-note">
+          Uso exclusivo de personal autorizado.
+        </p>
+      </div>
+
+      <!-- BLOQUE CONTENIDO ADMIN -->
+      <div id="adminContent" style="display:none; margin-top:4px;">
+        <header class="form-header">
+          <div class="form-title-group">
+            <h2>Respuestas de la encuesta</h2>
+            <p>Resumen y detalle de calificaciones del casino.</p>
+          </div>
+          <a href="index.html" class="admin-link">Volver al formulario</a>
+        </header>
+
+        <section class="admin-controls">
+          <div class="field">
+            <label for="search">Buscar por nombres, apellidos o documento</label>
+            <input
+              type="text"
+              id="search"
+              placeholder="Ej: Juan, Pérez, 123..."
+              autocomplete="off"
+            />
+          </div>
+          <div class="admin-controls-right">
+            <div class="admin-summary" id="adminSummary">
+              Cargando resumen...
+            </div>
+            <button type="button" class="btn-secondary" id="downloadBtn">
+              Descargar Excel
+            </button>
+          </div>
+        </section>
+
+        <section class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Documento</th>
+                <th>Sabor</th>
+                <th>Menú</th>
+                <th>Rotación</th>
+                <th>Saludables</th>
+                <th>Sugerencia</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody"></tbody>
+          </table>
+          <div class="admin-empty" id="adminEmpty" style="display:none;">
+            No se encontraron registros con el filtro actual.
+          </div>
+        </section>
+
+        <footer class="mini-footer">
+          <span>Panel de consulta · Sistemas – Club Campestre de Pereira</span>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
