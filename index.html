@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Encuesta Casino – Club Campestre</title>
+  <meta name="description" content="Encuesta de satisfacción del Casino - Club Campestre de Pereira" />
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Fondos -->
+  <div class="bg-layer bg-layer-1"></div>
+  <div class="bg-layer bg-layer-2"></div>
+  <div class="bg-stars"></div>
+
+  <main class="page">
+    <!-- Panel izquierdo: info -->
+    <section class="panel panel-left">
+      <div>
+        <div class="badge">
+          Encuesta · Casino 🍽️
+        </div>
+
+        <h1 class="title">
+          Encuesta<br/>
+          <span>Casino</span>
+        </h1>
+
+        <p class="subtitle">
+          Club Campestre de Pereira · Área de Bienestar.
+          <br/>
+          Tu opinión nos ayuda a mejorar el servicio y el menú semanal.
+        </p>
+
+        <div class="highlight-box">
+          <div class="highlight-icon">🥗</div>
+          <div class="highlight-text">
+            <h2>Solo toma 1 minuto</h2>
+            <p>Califica y sugiere mejoras específicas para el casino.</p>
+          </div>
+        </div>
+
+        <ul class="info-list">
+          <li>✔ Respuesta rápida (1 a 5).</li>
+          <li>✔ Sugerencias puntuales para mejorar.</li>
+          <li>✔ Información administrada por Bienestar y Sistemas.</li>
+          <li>✔ Una respuesta por colaborador (por documento).</li>
+        </ul>
+      </div>
+
+      <div class="floating-lights">
+        <span class="light light-1"></span>
+        <span class="light light-2"></span>
+        <span class="light light-3"></span>
+      </div>
+    </section>
+
+    <!-- Panel derecho: formulario -->
+    <section class="panel panel-right">
+      <header class="form-header">
+        <div class="form-title-group">
+          <h2>Califica el servicio del casino</h2>
+          <p>Por favor diligencia con tus datos reales.</p>
+        </div>
+        <div class="form-chip">
+          <span class="dot"></span>
+          Encuesta activa
+        </div>
+      </header>
+
+      <form id="finAnioForm" class="form">
+        <div class="form-row">
+          <div class="field">
+            <label for="nombres">Nombres</label>
+            <input
+              type="text"
+              id="nombres"
+              name="nombres"
+              placeholder="Ej: Juan Carlos"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="apellidos">Apellidos</label>
+            <input
+              type="text"
+              id="apellidos"
+              name="apellidos"
+              placeholder="Ej: Pérez Gómez"
+              autocomplete="off"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Número de documento -->
+        <div class="field field-full">
+          <label for="documento">Número de documento</label>
+          <input
+            type="text"
+            id="documento"
+            name="documento"
+            placeholder="Ej: 123456789"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <!-- Preguntas -->
+        <div class="field field-full">
+          <label class="label-block">🍲 Sabor: ¿Cómo calificaría el sabor y sazón de las preparaciones?</label>
+          <div class="options-grid rating-grid" data-group="sabor">
+            <label class="option-card option-rating">
+              <input type="radio" name="sabor" value="1" required />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">😕</span>
+                    <span class="icon-badge">1</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Muy malo</h3>
+                    <p>Sabor/sazón muy bajo</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+
+            <label class="option-card option-rating">
+              <input type="radio" name="sabor" value="2" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🙁</span>
+                    <span class="icon-badge">2</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Malo</h3>
+                    <p>Necesita mejorar</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+
+            <label class="option-card option-rating">
+              <input type="radio" name="sabor" value="3" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">😐</span>
+                    <span class="icon-badge">3</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Regular</h3>
+                    <p>Aceptable</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+
+            <label class="option-card option-rating">
+              <input type="radio" name="sabor" value="4" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🙂</span>
+                    <span class="icon-badge">4</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Bueno</h3>
+                    <p>Me gusta</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+
+            <label class="option-card option-rating">
+              <input type="radio" name="sabor" value="5" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">😋</span>
+                    <span class="icon-badge">5</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Excelente</h3>
+                    <p>Muy bien</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field field-full">
+          <label class="label-block">📋 Menú: ¿Qué tan satisfecho está con la variedad del menú semanal?</label>
+          <div class="options-grid rating-grid" data-group="menu">
+            <label class="option-card option-rating">
+              <input type="radio" name="menu" value="1" required />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🥱</span>
+                    <span class="icon-badge">1</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Muy baja</h3>
+                    <p>Poca variedad</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="menu" value="2" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🙁</span>
+                    <span class="icon-badge">2</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Baja</h3>
+                    <p>Repetitivo</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="menu" value="3" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">😐</span>
+                    <span class="icon-badge">3</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Media</h3>
+                    <p>Normal</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="menu" value="4" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🙂</span>
+                    <span class="icon-badge">4</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Buena</h3>
+                    <p>Variada</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="menu" value="5" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🤩</span>
+                    <span class="icon-badge">5</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Excelente</h3>
+                    <p>Muy variada</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field field-full">
+          <label class="label-block">🔁 Frecuencia de rotación: ¿Siente que los platos se repiten con demasiada frecuencia?</label>
+          <div class="options-grid rating-grid" data-group="frecuencia_rotacion">
+            <label class="option-card option-rating">
+              <input type="radio" name="frecuencia_rotacion" value="1" required />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">✅</span>
+                    <span class="icon-badge">1</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>No</h3>
+                    <p>No se repiten</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="frecuencia_rotacion" value="2" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🙂</span>
+                    <span class="icon-badge">2</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Poco</h3>
+                    <p>Muy ocasional</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="frecuencia_rotacion" value="3" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">😐</span>
+                    <span class="icon-badge">3</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Regular</h3>
+                    <p>Algunas veces</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="frecuencia_rotacion" value="4" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🙁</span>
+                    <span class="icon-badge">4</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Sí</h3>
+                    <p>Se repiten</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="frecuencia_rotacion" value="5" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">⚠️</span>
+                    <span class="icon-badge">5</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Mucho</h3>
+                    <p>Muy repetitivo</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field field-full">
+          <label class="label-block">🥦 Opciones saludables: ¿El casino ofrece suficientes opciones balanceadas o para dietas especiales (vegetariano, light)?</label>
+          <div class="options-grid rating-grid" data-group="opciones_saludables">
+            <label class="option-card option-rating">
+              <input type="radio" name="opciones_saludables" value="1" required />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">❌</span>
+                    <span class="icon-badge">1</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Nunca</h3>
+                    <p>Muy pocas</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="opciones_saludables" value="2" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🙁</span>
+                    <span class="icon-badge">2</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Insuficiente</h3>
+                    <p>Faltan opciones</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="opciones_saludables" value="3" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">😐</span>
+                    <span class="icon-badge">3</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Regular</h3>
+                    <p>Podría mejorar</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="opciones_saludables" value="4" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🙂</span>
+                    <span class="icon-badge">4</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Buena</h3>
+                    <p>Hay opciones</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <label class="option-card option-rating">
+              <input type="radio" name="opciones_saludables" value="5" />
+              <div class="option-inner">
+                <div class="option-header">
+                  <div class="option-icon-wrap food">
+                    <span class="icon-main">🥇</span>
+                    <span class="icon-badge">5</span>
+                  </div>
+                  <div class="option-texts">
+                    <h3>Excelente</h3>
+                    <p>Muy completo</p>
+                  </div>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field field-full">
+          <label for="sugerencia">📝 ¿Qué plato le gustaría ver en el menú o qué mejora específica sugiere?</label>
+          <input
+            type="text"
+            id="sugerencia"
+            name="sugerencia"
+            placeholder="Ej: más ensaladas, opción vegetariana diaria, sopa sin crema, etc."
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Mensajes -->
+        <div class="messages" id="messages"></div>
+
+        <!-- Botón -->
+        <div class="form-footer">
+          <small class="note">
+            Al enviar, autorizas el uso de la información para fines de mejora del servicio de alimentación.
+          </small>
+          <button type="submit" class="btn-primary" id="submitBtn">
+            <span class="btn-text-default">Enviar encuesta</span>
+            <span class="btn-text-loading">Guardando...</span>
+          </button>
+        </div>
+      </form>
+
+      <footer class="mini-footer">
+        <span>Desarrollo interno · Área de Sistemas – Club Campestre de Pereira</span>
+        <a href="admin.html" class="admin-link" title="Solo personal autorizado">
+          Panel admin
+        </a>
+      </footer>
+    </section>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="successModal" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-icon">✅</div>
+      <h2>¡Encuesta enviada!</h2>
+      <p class="modal-text">
+        <span id="modalName"></span><br/>
+        Gracias por ayudarnos a mejorar el casino. 🍽️
+      </p>
+      <p class="modal-note">
+        Si deseas ampliar tu sugerencia, puedes comunicarte con Bienestar.
+      </p>
+      <button type="button" class="btn-secondary" id="modalCloseBtn">
+        Cerrar
+      </button>
+    </div>
+  </div>
+
+  <!-- Supabase JS v2 -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
