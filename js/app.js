@@ -104,14 +104,32 @@ function showMessage(type, text) {
   messagesBox.appendChild(div);
 }
 
-function setFormDisabled(disabled) {
-  if (disabled) {
+function setSubmitting(isSubmitting) {
+  if (!form || !submitBtn) return;
+
+  if (isSubmitting) {
     form.classList.add("disabled");
     submitBtn.classList.add("loading");
+    submitBtn.disabled = true;
   } else {
     form.classList.remove("disabled");
     submitBtn.classList.remove("loading");
+    submitBtn.disabled = false;
   }
+}
+
+function setSurveyCompleted() {
+  if (!form || !submitBtn) return;
+
+  form.classList.add("disabled");
+  submitBtn.classList.remove("loading");
+  submitBtn.disabled = true;
+
+  const defaultText = submitBtn.querySelector(".btn-text-default");
+  const loadingText = submitBtn.querySelector(".btn-text-loading");
+
+  if (defaultText) defaultText.textContent = "Encuesta enviada";
+  if (loadingText) loadingText.textContent = "Enviada";
 }
 
 function openSuccessModal(nombreCompleto) {
@@ -191,7 +209,7 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  setFormDisabled(true);
+  setSubmitting(true);
   showMessage("success", "Enviando tu encuesta...");
 
   try {
@@ -213,21 +231,21 @@ form.addEventListener("submit", async (event) => {
       } else {
         showMessage("error", "Ocurrió un error al guardar la encuesta. Intenta nuevamente o comunícate con sistemas.");
       }
-      setFormDisabled(false);
+      setSubmitting(false);
       return;
     }
 
     markRegisteredLocal();
     const nombreCompleto = `${nombres} ${apellidos}`;
-    showMessage("success", "✅ ¡Encuesta enviada correctamente! Gracias por tu opinión.");
+    showMessage("success", "✅ Gracias, has diligenciado la encuesta correctamente.");
     form.reset();
     document.querySelectorAll(".option-card.selected").forEach((c) => c.classList.remove("selected"));
-    setFormDisabled(true);
+    setSurveyCompleted();
     openSuccessModal(nombreCompleto);
   } catch (err) {
     console.error(err);
     showMessage("error", "Ocurrió un error inesperado. Intenta nuevamente o comunícate con sistemas.");
-    setFormDisabled(false);
+    setSubmitting(false);
   }
 });
 
@@ -236,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (checkAlreadyRegisteredLocal()) {
     showMessage("success", "Ya enviaste la encuesta desde este dispositivo.");
-    setFormDisabled(true);
+    setSurveyCompleted();
   }
 
   if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeSuccessModal);
