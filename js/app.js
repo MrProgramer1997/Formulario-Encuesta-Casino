@@ -1,29 +1,87 @@
-// js/app.js
-
-// 1. Configuración de Supabase
-const SUPABASE_URL = "https://owhecfljtxuqbkeamsaz.supabase.co";
+const SUPABASE_URL = "https://bbgqhzejwvfxpkhpvtux.supabase.co";
 const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93aGVjZmxqdHh1cWJrZWFtc2F6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MzE0NzAsImV4cCI6MjA4NjQwNzQ3MH0.5WcwCwsFw6YgNhO8dzlYahFsSeVr6nBC6ZuCEeg33A4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJiZ3FoemVqd3ZmeHBraHB2dHV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2MTY5ODUsImV4cCI6MjA5OTE5Mjk4NX0.W-PBiI9B6Y-t0ZUByp7BZi7J8lHJ27ObEliFu39-yck";
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// 2. Selectores
 const form = document.getElementById("finAnioForm");
 const messagesBox = document.getElementById("messages");
 const submitBtn = document.getElementById("submitBtn");
+const questionsContainer = document.getElementById("questionsContainer");
 
-// Modal
 const successModal = document.getElementById("successModal");
 const modalNameEl = document.getElementById("modalName");
 const modalCloseBtn = document.getElementById("modalCloseBtn");
 
-// Cambiamos la key local para que NO choque con el formulario anterior
-const STORAGE_KEY = "encuestaCasinoRegistrada_v1";
+const STORAGE_KEY = "encuestaCasinoServicioColaboradores_v1";
 
-/* --------------------------- UTILIDADES UI --------------------------- */
+const RATING_OPTIONS = [
+  { value: 1, title: "Muy insatisfecho", text: "Muy bajo", icon: "😕" },
+  { value: 2, title: "Insatisfecho", text: "Debe mejorar", icon: "🙁" },
+  { value: 3, title: "Ni satisfecho ni insatisfecho", text: "Normal", icon: "😐" },
+  { value: 4, title: "Satisfecho", text: "Bueno", icon: "🙂" },
+  { value: 5, title: "Muy satisfecho", text: "Excelente", icon: "😋" },
+];
+
+const QUESTIONS = [
+  {
+    field: "sabor_calidad",
+    label: "🍲 ¿Qué tan satisfecho(a) estás con el sabor y la calidad de los alimentos?",
+  },
+  {
+    field: "variedad_menu",
+    label: "📋 ¿Cómo calificas la variedad del menú que se ofrece?",
+  },
+  {
+    field: "atencion_servicio",
+    label: "🤝 ¿Qué tan satisfecho(a) estás con la atención y el servicio brindado por el personal del casino?",
+  },
+  {
+    field: "limpieza_higiene",
+    label: "🧼 ¿Cómo calificas la limpieza e higiene del casino y de los utensilios?",
+  },
+  {
+    field: "tiempos_menu_especial",
+    label: "⏱️ Qué tan satisfecho(a) estas con los tiempos de entrega del menú especial?",
+  },
+  {
+    field: "satisfaccion_general",
+    label: "⭐ En términos generales, ¿qué tan satisfecho(a) estás con el servicio del casino de colaboradores?",
+  },
+];
+
+function renderQuestions() {
+  if (!questionsContainer) return;
+
+  questionsContainer.innerHTML = QUESTIONS.map((question) => {
+    const options = RATING_OPTIONS.map((option) => `
+      <label class="option-card option-rating">
+        <input type="radio" name="${question.field}" value="${option.value}" required />
+        <div class="option-inner">
+          <div class="option-header">
+            <div class="option-icon-wrap food">
+              <span class="icon-main">${option.icon}</span>
+              <span class="icon-badge">${option.value}</span>
+            </div>
+            <div class="option-texts">
+              <h3>${option.title}</h3>
+              <p>${option.text}</p>
+            </div>
+          </div>
+        </div>
+      </label>
+    `).join("");
+
+    return `
+      <div class="field field-full">
+        <label class="label-block">${question.label}</label>
+        <div class="options-grid rating-grid" data-group="${question.field}">
+          ${options}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
 
 function showMessage(type, text) {
   messagesBox.innerHTML = "";
@@ -56,8 +114,6 @@ function setFormDisabled(disabled) {
   }
 }
 
-/* ------------------------------ MODAL ------------------------------ */
-
 function openSuccessModal(nombreCompleto) {
   if (!successModal) return;
   modalNameEl.textContent = nombreCompleto;
@@ -71,12 +127,6 @@ function closeSuccessModal() {
   successModal.setAttribute("aria-hidden", "true");
 }
 
-/* --------------------------- SELECCIÓN TARJETAS --------------------------- */
-/**
- * Antes: solo permitía 1 selección global (evento).
- * Ahora: hay varias preguntas, cada una con 5 opciones.
- * Solución: el "selected" se aplica SOLO dentro del grid del grupo.
- */
 document.addEventListener("click", (e) => {
   const card = e.target.closest(".option-card");
   if (!card) return;
@@ -88,15 +138,11 @@ document.addEventListener("click", (e) => {
 
   const grid = card.closest(".options-grid");
   if (grid) {
-    grid
-      .querySelectorAll(".option-card.selected")
-      .forEach((c) => c.classList.remove("selected"));
+    grid.querySelectorAll(".option-card.selected").forEach((c) => c.classList.remove("selected"));
   }
 
   card.classList.add("selected");
 });
-
-/* --------------------------- REGISTRO LOCAL --------------------------- */
 
 function checkAlreadyRegisteredLocal() {
   return localStorage.getItem(STORAGE_KEY) === "1";
@@ -106,7 +152,10 @@ function markRegisteredLocal() {
   localStorage.setItem(STORAGE_KEY, "1");
 }
 
-/* --------------------------- ENVÍO FORMULARIO --------------------------- */
+function getRatingValue(fieldName) {
+  const radio = form.querySelector(`input[name="${fieldName}"]:checked`);
+  return radio ? Number(radio.value) : null;
+}
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -115,11 +164,7 @@ form.addEventListener("submit", async (event) => {
   const apellidos = form.apellidos.value.trim();
   const documento = form.documento.value.trim();
   const sugerencia = (form.sugerencia?.value || "").trim();
-
-  const saborRadio = form.querySelector('input[name="sabor"]:checked');
-  const menuRadio = form.querySelector('input[name="menu"]:checked');
-  const freqRadio = form.querySelector('input[name="frecuencia_rotacion"]:checked');
-  const saludRadio = form.querySelector('input[name="opciones_saludables"]:checked');
+  const comentarios_adicionales = (form.comentarios_adicionales?.value || "").trim();
 
   if (!nombres || !apellidos) {
     showMessage("error", "Por favor completa tus nombres y apellidos.");
@@ -131,24 +176,20 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  if (!saborRadio || !menuRadio || !freqRadio || !saludRadio) {
-    showMessage("error", "Por favor responde todas las preguntas (calificación 1 a 5).");
-    return;
+  const ratings = {};
+  for (const question of QUESTIONS) {
+    const value = getRatingValue(question.field);
+    if (!value) {
+      showMessage("error", "Por favor responde todas las preguntas (calificación 1 a 5).");
+      return;
+    }
+    ratings[question.field] = value;
   }
 
-  // Validación local (evita doble envío en el mismo navegador)
   if (checkAlreadyRegisteredLocal()) {
-    showMessage(
-      "error",
-      "Ya enviaste la encuesta desde este dispositivo. Si crees que es un error, comunícate con sistemas."
-    );
+    showMessage("error", "Ya enviaste la encuesta desde este dispositivo. Si crees que es un error, comunícate con sistemas.");
     return;
   }
-
-  const sabor = Number(saborRadio.value);
-  const menu = Number(menuRadio.value);
-  const frecuencia_rotacion = Number(freqRadio.value);
-  const opciones_saludables = Number(saludRadio.value);
 
   setFormDisabled(true);
   showMessage("success", "Enviando tu encuesta...");
@@ -156,81 +197,54 @@ form.addEventListener("submit", async (event) => {
   try {
     const { error } = await supabaseClient
       .from("encuesta_casino")
-      .insert([
-        {
-          nombres,
-          apellidos,
-          documento,
-          sabor,
-          menu,
-          frecuencia_rotacion,
-          opciones_saludables,
-          sugerencia: sugerencia || null,
-        },
-      ]);
+      .insert([{
+        nombres,
+        apellidos,
+        documento,
+        ...ratings,
+        sugerencia: sugerencia || null,
+        comentarios_adicionales: comentarios_adicionales || null,
+      }]);
 
     if (error) {
       console.error("Error Supabase:", error);
-
-      // Duplicado por unique(documento)
       if (error.code === "23505") {
-        showMessage(
-          "error",
-          "Ya registraste una respuesta con este documento. No es necesario enviar otra."
-        );
+        showMessage("error", "Ya registraste una respuesta con este documento. No es necesario enviar otra.");
       } else {
-        showMessage(
-          "error",
-          "Ocurrió un error al guardar la encuesta. Intenta nuevamente o comunícate con sistemas."
-        );
+        showMessage("error", "Ocurrió un error al guardar la encuesta. Intenta nuevamente o comunícate con sistemas.");
       }
-
       setFormDisabled(false);
       return;
     }
 
-    // Éxito
     markRegisteredLocal();
     const nombreCompleto = `${nombres} ${apellidos}`;
-
     showMessage("success", "✅ ¡Encuesta enviada correctamente! Gracias por tu opinión.");
-
-    // Limpiar UI
     form.reset();
-    document
-      .querySelectorAll(".option-card.selected")
-      .forEach((c) => c.classList.remove("selected"));
-
+    document.querySelectorAll(".option-card.selected").forEach((c) => c.classList.remove("selected"));
     setFormDisabled(true);
     openSuccessModal(nombreCompleto);
   } catch (err) {
     console.error(err);
-    showMessage(
-      "error",
-      "Ocurrió un error inesperado. Intenta nuevamente o comunícate con sistemas."
-    );
+    showMessage("error", "Ocurrió un error inesperado. Intenta nuevamente o comunícate con sistemas.");
     setFormDisabled(false);
   }
 });
 
-/* --------------------------- CARGA INICIAL --------------------------- */
-
 document.addEventListener("DOMContentLoaded", () => {
+  renderQuestions();
+
   if (checkAlreadyRegisteredLocal()) {
     showMessage("success", "Ya enviaste la encuesta desde este dispositivo.");
     setFormDisabled(true);
   }
 
-  if (modalCloseBtn) {
-    modalCloseBtn.addEventListener("click", closeSuccessModal);
-  }
-
+  if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeSuccessModal);
   if (successModal) {
     successModal.addEventListener("click", (e) => {
       if (e.target === successModal) closeSuccessModal();
     });
   }
-
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeSuccessModal();
   });

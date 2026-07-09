@@ -15,34 +15,25 @@
   <div class="bg-stars"></div>
 
   <main class="page">
-    <!-- Panel info -->
     <section class="panel panel-left">
       <div>
         <div class="badge">Panel · Administración 🍽️</div>
-        <h1 class="title">
-          Encuesta<br/>
-          <span>Casino Admin</span>
-        </h1>
-        <p class="subtitle">
-          Consulta en tiempo real las respuestas de satisfacción del casino.
-        </p>
-
+        <h1 class="title">Encuesta<br/><span>Casino Admin</span></h1>
+        <p class="subtitle">Consulta en tiempo real las respuestas de satisfacción del casino.</p>
         <div class="highlight-box">
           <div class="highlight-icon">📊</div>
           <div class="highlight-text">
             <h2>Uso interno</h2>
-            <p>Panel exclusivo para el área de Sistemas y Bienestar.</p>
+            <p>Panel exclusivo para personal autorizado.</p>
           </div>
         </div>
-
         <ul class="info-list">
           <li>✔ Visualización de respuestas por fecha.</li>
-          <li>✔ Buscador por nombre, apellido o documento.</li>
+          <li>✔ Buscador por nombre, apellido, documento o sugerencia.</li>
           <li>✔ Promedios generales (1 a 5).</li>
           <li>✔ Exportar a Excel (CSV).</li>
         </ul>
       </div>
-
       <div class="floating-lights">
         <span class="light light-1"></span>
         <span class="light light-2"></span>
@@ -50,35 +41,26 @@
       </div>
     </section>
 
-    <!-- Panel admin con login + contenido -->
     <section class="panel panel-right">
-      <!-- BLOQUE LOGIN -->
       <div class="admin-login" id="adminLogin">
         <h2>Acceso restringido</h2>
-        <p>Ingresa la contraseña de administración para continuar.</p>
+        <p>Ingresa usuario y contraseña para continuar.</p>
+
+        <div class="field">
+          <label for="adminUser">Usuario</label>
+          <input type="text" id="adminUser" placeholder="usuario" autocomplete="username" />
+        </div>
 
         <div class="field">
           <label for="adminPassword">Contraseña</label>
-          <input
-            type="password"
-            id="adminPassword"
-            placeholder="********"
-            autocomplete="off"
-          />
+          <input type="password" id="adminPassword" placeholder="********" autocomplete="current-password" />
         </div>
 
-        <button type="button" class="btn-primary" id="adminLoginBtn">
-          Ingresar
-        </button>
-
+        <button type="button" class="btn-primary" id="adminLoginBtn">Ingresar</button>
         <div class="admin-login-msg" id="adminLoginMsg"></div>
-
-        <p class="admin-login-note">
-          Uso exclusivo de personal autorizado.
-        </p>
+        <p class="admin-login-note">Uso exclusivo de personal autorizado.</p>
       </div>
 
-      <!-- BLOQUE CONTENIDO ADMIN -->
       <div id="adminContent" style="display:none; margin-top:4px;">
         <header class="form-header">
           <div class="form-title-group">
@@ -90,21 +72,12 @@
 
         <section class="admin-controls">
           <div class="field">
-            <label for="search">Buscar por nombres, apellidos o documento</label>
-            <input
-              type="text"
-              id="search"
-              placeholder="Ej: Juan, Pérez, 123..."
-              autocomplete="off"
-            />
+            <label for="search">Buscar por nombres, apellidos, documento o texto</label>
+            <input type="text" id="search" placeholder="Ej: Juan, Pérez, 123..." autocomplete="off" />
           </div>
           <div class="admin-controls-right">
-            <div class="admin-summary" id="adminSummary">
-              Cargando resumen...
-            </div>
-            <button type="button" class="btn-secondary" id="downloadBtn">
-              Descargar Excel
-            </button>
+            <div class="admin-summary" id="adminSummary">Cargando resumen...</div>
+            <button type="button" class="btn-secondary" id="downloadBtn">Descargar Excel</button>
           </div>
         </section>
 
@@ -116,18 +89,19 @@
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Documento</th>
-                <th>Sabor</th>
-                <th>Menú</th>
-                <th>Rotación</th>
-                <th>Saludables</th>
+                <th>Sabor/calidad</th>
+                <th>Variedad menú</th>
+                <th>Atención/servicio</th>
+                <th>Limpieza/higiene</th>
+                <th>Tiempos menú especial</th>
+                <th>Satisfacción general</th>
                 <th>Sugerencia</th>
+                <th>Comentarios</th>
               </tr>
             </thead>
             <tbody id="adminTableBody"></tbody>
           </table>
-          <div class="admin-empty" id="adminEmpty" style="display:none;">
-            No se encontraron registros con el filtro actual.
-          </div>
+          <div class="admin-empty" id="adminEmpty" style="display:none;">No se encontraron registros con el filtro actual.</div>
         </section>
 
         <footer class="mini-footer">
